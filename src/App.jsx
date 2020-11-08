@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./styles.css";
 
 export const App = () => {
+  //inputの入力値
   const [todoText, setTodoText] = useState("");
 
   //未完了
@@ -26,6 +27,16 @@ export const App = () => {
     setTodoText("");
   };
 
+  const onClickDelete = (index) => {
+    //削除するときは何番目の（どの）要素を削除するのかがわからなくてはならない
+    //そのためにindexを引数に渡す
+    const newTodos = [...incompleteTodos];
+    //...で参照を引き継がない形で展開させた
+    newTodos.splice(index, 1);
+    //undexが０なら配列の０番目から一つ削除するということ
+    setIncompleteTodos(newTodos);
+  };
+
   return (
     <div>
       <div className="input-area">
@@ -44,7 +55,7 @@ export const App = () => {
               <div key={index} className="list-row">
                 <li>{todo}</li>
                 <button>完了</button>
-                <button>削除</button>
+                <button onClick={() => onClickDelete(index)}>削除</button>
               </div>
             );
           })}
@@ -54,6 +65,7 @@ export const App = () => {
         <p className="title">完了のTODO</p>
         <ul>
           {completeTodo.map((todo, index) => {
+            //indexで何番目が押されたかを判定
             return (
               <div key={index} className="list-row">
                 <li>{todo}</li>
