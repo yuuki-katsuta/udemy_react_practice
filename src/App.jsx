@@ -6,12 +6,12 @@ export const App = () => {
   const [todoText, setTodoText] = useState("");
 
   //未完了
-  const [incompleteTodos, setIncompleteTodos] = useState(["あああ", "いいい"]);
+  const [incompleteTodos, setIncompleteTodos] = useState([]);
   //console.log(incompleteTodos); //["あああ", "いいい"]
   //incompleteTodosの初期値を配列で表した
 
   //完了
-  const [completeTodos, setCompleteTodos] = useState(["ううう"]);
+  const [completeTodos, setCompleteTodos] = useState([]);
 
   const onChangeTodoText = (e) => {
     //eはイベントオブジェクト
@@ -19,6 +19,7 @@ export const App = () => {
     //e.target.valueで入力内容を取得できる
   };
 
+  //追加
   const onClickAdd = () => {
     if (todoText === "") return;
     const newTodos = [...incompleteTodos, todoText]; //配列のマージ
@@ -48,6 +49,17 @@ export const App = () => {
     const newCompleteTodos = [...completeTodos, incompleteTodos[index]];
     //削除された要素はincompleteTodos[index]で表せる
     setCompleteTodos(newCompleteTodos);
+  };
+
+  const onClickReturn = (index) => {
+    //削除と同じく配列からその要素を消す
+    const newCompleteTodos = [...completeTodos];
+    newCompleteTodos.splice(index, 1);
+    setCompleteTodos(newCompleteTodos);
+    //未完了へ戻す
+    const newTodos = [...incompleteTodos, completeTodos[index]];
+    //戻されたtodoはcompleteTodos[index]で表せる
+    setIncompleteTodos(newTodos);
   };
 
   return (
@@ -82,7 +94,7 @@ export const App = () => {
             return (
               <div key={index} className="list-row">
                 <li>{todo}</li>
-                <button>戻す</button>
+                <button onClick={() => onClickReturn(index)}>戻す</button>
               </div>
             );
           })}
