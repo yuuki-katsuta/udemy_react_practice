@@ -1,9 +1,7 @@
 import React from "react";
-import ReactDom from "react-dom";
-import App from "./App";
+import ReactDOM from "react-dom";
 
-//return内が複数行のときは（）で囲う
-//不要なタグがレンダリングされるのでReact.Fragmentで囲うとエラー回避できる
+import { App } from "./App";
 
-ReactDom.render(<App />, document.getElementById("root"));
-//root配下にAppコンポーネントを表示するという意味
+ReactDOM.render(<App />, document.getElementById("root"));
+//root配下に設定
