@@ -71,7 +71,17 @@ export const App = () => {
         todoText={todoText}
         onChange={onChangeTodoText}
         onClick={onClickAdd}
+        disabled={incompleteTodos.length >= 10}
+        //incompleteTodos.length >= 5 でtrueかfalseを渡せる
       />
+      {incompleteTodos.length >= 5 && (
+        //左側がtrueなら右を返す
+        <p style={{ color: "red" }}>todoがたまってきたね〜</p>
+      )}
+      {incompleteTodos.length >= 10 && (
+        //左側がtrueなら右を返す
+        <p style={{ color: "red" }}>登録できるtodoは10個までだよ〜</p>
+      )}
       <IncompleteTodos
         Todos={incompleteTodos}
         onClickComplete={onClickComplete}
